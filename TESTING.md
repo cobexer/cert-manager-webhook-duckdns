@@ -31,7 +31,7 @@ export DNS_NAME=<your-domain>.duckdns.org  # No trailing dot
 make docker-unittest
 ```
 
-The unit test uses the go modules from : https://pkg.go.dev/github.com/ebrianne/duckdns-go#section-readme
+The unit test uses the go modules from : https://pkg.go.dev/github.com/cobexer/duckdns-go#section-readme
 
 They mock a kube-api call using etcd.
 They expect binaries in hardcoded locations. 
@@ -93,7 +93,7 @@ I0318 21:15:21.588405   12025 solver.go:180] Cleaned up txt record: cert-manager
 === RUN   TestRunsSuite/Conformance/Extended
 === RUN   TestRunsSuite/Conformance/Extended/DeletingOneRecordRetainsOthers
 
-    suite.go:73: skipping test as strict mode is disabled, see: https://github.com/jetstack/cert-manager/pull/1354
+    suite.go:73: skipping test as strict mode is disabled, see: https://github.com/cert-manager/cert-manager/pull/1354
 
 --- PASS: TestRunsSuite (121.47s)
     --- PASS: TestRunsSuite/Conformance (99.79s)
@@ -103,15 +103,15 @@ I0318 21:15:21.588405   12025 solver.go:180] Cleaned up txt record: cert-manager
             --- SKIP: TestRunsSuite/Conformance/Extended/DeletingOneRecordRetainsOthers (0.00s)
 
 PASS
-ok  	github.com/ebrianne/cert-manager-webhook-duckdns	121.498s
+ok  	github.com/cobexer/cert-manager-webhook-duckdns	121.498s
 
 
 ##Additional Notes
 You cannot test on macos as it depends on linux specific network code, you will get this eror on macos:
 ```
 go test -v .
-# github.com/ebrianne/cert-manager-webhook-duckdns.test
+# github.com/cobexer/cert-manager-webhook-duckdns.test
 link: golang.org/x/net/internal/socket: invalid reference to syscall.recvmsg
-FAIL	github.com/ebrianne/cert-manager-webhook-duckdns [build failed]
+FAIL	github.com/cobexer/cert-manager-webhook-duckdns [build failed]
 FAIL
 ```

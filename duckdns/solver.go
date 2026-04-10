@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/jetstack/cert-manager/pkg/acme/webhook"
-	"github.com/jetstack/cert-manager/pkg/acme/webhook/apis/acme/v1alpha1"
-	"github.com/jetstack/cert-manager/pkg/issuer/acme/dns/util"
+	"github.com/cert-manager/cert-manager/pkg/acme/webhook"
+	"github.com/cert-manager/cert-manager/pkg/acme/webhook/apis/acme/v1alpha1"
+	"github.com/cert-manager/cert-manager/pkg/issuer/acme/dns/util"
 
 	"github.com/pkg/errors"
 
@@ -17,7 +17,7 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/klog/v2"
 
-	duckdnsgo "github.com/ebrianne/duckdns-go/duckdns"
+	duckdnsgo "github.com/cobexer/duckdns-go/v2/duckdns"
 )
 
 func NewSolver() webhook.Solver {
@@ -26,7 +26,7 @@ func NewSolver() webhook.Solver {
 
 // Solver implements the provider-specific logic needed to
 // 'present' an ACME challenge TXT record for your own DNS provider.
-// To do so, it must implement the `github.com/jetstack/cert-manager/pkg/acme/webhook.Solver`
+// To do so, it must implement the `github.com/cert-manager/cert-manager/pkg/acme/webhook.Solver`
 // interface.
 type duckDNSProviderSolver struct {
 	client *kubernetes.Clientset

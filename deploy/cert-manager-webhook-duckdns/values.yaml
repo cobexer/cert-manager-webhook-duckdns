@@ -29,9 +29,9 @@ clusterIssuer:
     create: false
     
 image:
-  repository: lalberslz4/cert-manager-webhook-duckdns
-  tag: alpine3.21
-  pullPolicy: IfNotPresent 
+  repository: ghcr.io/cobexer/cert-manager-webhook-duckdns
+  tag: {{ .Chart.Version }}
+  pullPolicy: IfNotPresent
   # pullSecret: ""
 
 nameOverride: ""
