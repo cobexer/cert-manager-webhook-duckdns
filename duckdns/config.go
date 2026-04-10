@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	cmmeta "github.com/cert-manager/cert-manager/pkg/apis/meta/v1"
-	extapi "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 )
 
 // Config is a structure that is used to decode into when
@@ -32,7 +32,7 @@ type Config struct {
 
 // loadConfig is a small helper function that decodes JSON configuration into
 // the typed config struct.
-func loadConfig(cfgJSON *extapi.JSON) (Config, error) {
+func loadConfig(cfgJSON *v1.JSON) (Config, error) {
 	cfg := Config{}
 
 	// handle the 'base case' where no configuration has been provided
