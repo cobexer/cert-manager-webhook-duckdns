@@ -93,7 +93,7 @@ I0318 21:15:21.588405   12025 solver.go:180] Cleaned up txt record: cert-manager
 === RUN   TestRunsSuite/Conformance/Extended
 === RUN   TestRunsSuite/Conformance/Extended/DeletingOneRecordRetainsOthers
 
-    suite.go:73: skipping test as strict mode is disabled, see: https://github.com/jetstack/cert-manager/pull/1354
+    suite.go:73: skipping test as strict mode is disabled, see: https://github.com/cert-manager/cert-manager/pull/1354
 
 --- PASS: TestRunsSuite (121.47s)
     --- PASS: TestRunsSuite/Conformance (99.79s)

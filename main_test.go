@@ -4,8 +4,8 @@ import (
 	"os"
 	"testing"
 
+	"github.com/cert-manager/cert-manager/test/acme/dns"
 	"github.com/cobexer/cert-manager-webhook-duckdns/duckdns"
-	"github.com/jetstack/cert-manager/test/acme/dns"
 )
 
 var (
