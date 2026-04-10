@@ -137,3 +137,11 @@ TEST_ZONE_NAME=example.com. DNS_NAME=example.com go test -v .
 [RBAC Authorization]: https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 [setting-nameservers-for-dns01-self-check]: https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check
 [cert-manager-uninstall]: https://cert-manager.io/docs/installation/uninstall/kubernetes/
+
+## Attributions
+
+This project is based on prior work by:
+
+- [nolte](https://github.com/nolte) — original implementation
+- [ebrianne](https://github.com/ebrianne) — continued development and maintenance
+- [lucas-albers-lz4](https://github.com/lucas-albers-lz4) — contributions and improvements
