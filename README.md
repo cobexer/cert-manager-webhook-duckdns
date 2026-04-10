@@ -11,15 +11,9 @@ Build the container image `cert-manager-webhook-duckdns:latest`:
 
     make build
 ## Image
-Ready made images are hosted on Docker Hub ([image tags]). Use at your own risk:
+Images are hosted on the GitHub Container Registry:
 
-    lalberslz4/cert-manager-webhook-duckdns
-
-## More current Images (Updated weekly)
-Rebuilt with alpine 3.21 and go 1.24 (add to helm command below)
-
-    --set image.repository=lalberslz4/cert-manager-webhook-duckdns \
-    --set image.tag=alpine3.21
+    ghcr.io/cobexer/cert-manager-webhook-duckdns
 
 ## Compatibility
 This webhook has been tested with [cert-manager] v1.2.3 and Kubernetes v0.17.x on `amd64`. In theory it should work on other hardware platforms as well but no steps have been taken to verify this. Please drop me a note if you had success.
@@ -68,7 +62,7 @@ This webhook has been tested with [cert-manager] v1.2.3 and Kubernetes v0.17.x o
             --set logLevel=2 \
             ./deploy/cert-manager-webhook-duckdns
 
-    Or you can use the helm repo provided [here](https://github.com/ebrianne/helm-charts)
+    Or install directly from the OCI Helm registry (no `helm repo add` needed):
 
         helm install cert-manager-webhook-duckdns \
             --namespace cert-manager \
@@ -77,7 +71,7 @@ This webhook has been tested with [cert-manager] v1.2.3 and Kubernetes v0.17.x o
             --set clusterIssuer.staging.create=true \
             --set clusterIssuer.email=<email> \
             --set logLevel=2 \
-            ebrianne.github.io/cert-manager-webhook-duckdns
+            oci://ghcr.io/cobexer/charts/cert-manager-webhook-duckdns
 
     Check the logs
 
@@ -139,7 +133,6 @@ TEST_ZONE_NAME=example.com. DNS_NAME=example.com go test -v .
 [DuckDNS]: https://www.duckdns.org
 [DuckDNS API]: https://www.duckdns.org/spec.jsp
 [Helm]: https://helm.sh
-[image tags]: https://hub.docker.com/r/lalberslz4/cert-manager-webhook-duckdns
 [Kubernetes]: https://kubernetes.io/
 [RBAC Authorization]: https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 [setting-nameservers-for-dns01-self-check]: https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check
