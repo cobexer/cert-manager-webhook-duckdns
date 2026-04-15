@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	dns "github.com/cert-manager/cert-manager/test/acme"
-	"github.com/cobexer/cert-manager-webhook-duckdns/duckdns"
+	"github.com/cobexer/cert-manager-webhook-duckdns/v2/duckdns"
 )
 
 var (
