@@ -1,4 +1,4 @@
-module github.com/cobexer/cert-manager-webhook-duckdns
+module github.com/cobexer/cert-manager-webhook-duckdns/v2
 
 go 1.26.0
 

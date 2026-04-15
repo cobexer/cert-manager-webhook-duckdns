@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/cert-manager/cert-manager/pkg/acme/webhook/cmd"
-	"github.com/cobexer/cert-manager-webhook-duckdns/duckdns"
+	"github.com/cobexer/cert-manager-webhook-duckdns/v2/duckdns"
 	"k8s.io/klog/v2"
 )
 
