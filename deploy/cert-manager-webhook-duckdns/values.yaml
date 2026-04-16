@@ -30,7 +30,7 @@ clusterIssuer:
     
 image:
   repository: ghcr.io/cobexer/cert-manager-webhook-duckdns
-  tag: {{ .Chart.Version }}
+  tag: ""
   pullPolicy: IfNotPresent
   # pullSecret: ""
 
