@@ -33,11 +33,20 @@ jobs:
         run: helm package deploy/cert-manager-webhook-duckdns --version ${{ env.CI_VERSION }} --app-version ${{ env.CI_VERSION }}
 
   docker:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux/amd64
+            platform-pair: linux-amd64
+            runner: ubuntu-latest
+          - platform: linux/arm64
+            platform-pair: linux-arm64
+            runner: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v6
-      - uses: docker/setup-qemu-action@v4
       - uses: docker/setup-buildx-action@v4
       - name: Extract Go version from go.mod
         id: goversion
@@ -46,9 +55,9 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ matrix.platform }}
           push: false
           build-args: GOLANG_VERSION=${{ steps.goversion.outputs.version }}
           tags: ghcr.io/cobexer/cert-manager-webhook-duckdns:${{ env.CI_VERSION }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=${{ matrix.platform-pair }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.platform-pair }}
