@@ -62,7 +62,7 @@ compile:
 	GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -o webhook-arm64 -ldflags '-w -extldflags "-static"'
 
 github-listbuild:
-	gh run list --workflow=docker-build.yml --repo github.com/$(GITHUB_REPO)
+	gh run list --workflow=release.yml --repo github.com/$(GITHUB_REPO)
 
 github-build:
-	gh workflow run "Build and Push Docker Images" --repo github.com/$(GITHUB_REPO) --ref master
+	gh workflow run "Release" --repo github.com/$(GITHUB_REPO) --ref master

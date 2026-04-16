@@ -59,6 +59,7 @@ The following table lists the configurable parameters of the cert-manager-webhoo
 
 | Parameter                          | Description                                     | Default                                                 |
 |------------------------------------|-------------------------------------------------|---------------------------------------------------------|
+| `replicaCount`                     | Number of webhook replicas                      | `1`                                                     |
 | `groupName`                        | Group name for the webhook                      | `acme.duckdns.org`                                      |
 | `logLevel`                         | Logging level                                   | `2`                                                     |
 | `certManager.namespace`            | cert-manager namespace                          | `cert-manager`                                          |
