@@ -17,6 +17,7 @@ jobs:
       - uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
+          cache: true
       - run: go build ./...
       - run: go vet ./...
 
@@ -49,3 +50,5 @@ jobs:
           push: false
           build-args: GOLANG_VERSION=${{ steps.goversion.outputs.version }}
           tags: ghcr.io/cobexer/cert-manager-webhook-duckdns:${{ env.CI_VERSION }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

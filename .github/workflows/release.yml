@@ -12,6 +12,7 @@ jobs:
       - uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
+          cache: true
       - run: go build ./...
       - run: go vet ./...
 
@@ -49,6 +50,8 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: GOLANG_VERSION=${{ steps.goversion.outputs.version }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   helm:
     runs-on: ubuntu-latest
