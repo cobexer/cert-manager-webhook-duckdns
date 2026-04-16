@@ -1,6 +1,15 @@
-IMAGE_NAME ?= "lucas-albers-lz4/cert-manager-webhook-duckdns"
-IMAGE_TAG := "latest"
-PLATFORMS := "linux/amd64,linux/arm64"
+GITHUB_REPO := $(shell git remote get-url origin | sed -E 's|.*github\.com[:/]||' | sed 's|\.git$$||')
+GITHUB_OWNER := $(firstword $(subst /, ,$(GITHUB_REPO)))
+IMAGE_NAME ?= ghcr.io/$(GITHUB_OWNER)/cert-manager-webhook-duckdns
+IMAGE_TAG := latest
+
+UNAME_ARCH := $(shell uname -m)
+ifeq ($(UNAME_ARCH),x86_64)
+  PLATFORMS ?= linux/amd64
+else
+  PLATFORMS ?= linux/arm64
+endif
+GOLANG_VERSION := $(shell grep '^go ' go.mod | cut -d' ' -f2 | cut -d'.' -f1,2)
 BUILDKIT_COMPRESSION := "zstd"
 BUILDKIT_COMPRESSION_LEVEL := "9"
 
@@ -12,14 +21,14 @@ verify:
 	go test -v .
 
 buildx:
-	docker buildx build --platform $(PLATFORMS) --tag $(IMAGE_NAME):$(IMAGE_TAG) --provenance=mode=max . 
+	docker buildx build --platform $(PLATFORMS) --tag $(IMAGE_NAME):$(IMAGE_TAG) --provenance=mode=max --build-arg GOLANG_VERSION=$(GOLANG_VERSION) .
 
 release: buildx
-	docker buildx build --platform $(PLATFORMS) --tag $(IMAGE_NAME):$(IMAGE_TAG) --provenance=mode=max . --push
+	docker buildx build --platform $(PLATFORMS) --tag $(IMAGE_NAME):$(IMAGE_TAG) --provenance=mode=max --build-arg GOLANG_VERSION=$(GOLANG_VERSION) . --push
 
 #don't change existing build commands
 build:
-	docker build -t "$(IMAGE_NAME):$(IMAGE_TAG)" .
+	docker build -t "$(IMAGE_NAME):$(IMAGE_TAG)" --build-arg GOLANG_VERSION=$(GOLANG_VERSION) .
 
 .PHONY: rendered-manifest.yaml
 rendered-manifest.yaml:
@@ -41,7 +50,7 @@ check-env-file:
 	fi
 
 docker-build-unittest:
-	docker build -f Dockerfile.unittest -t cert-manager-webhook-duckdns:test .
+	docker build -f Dockerfile.unittest -t cert-manager-webhook-duckdns:test --build-arg GOLANG_VERSION=$(GOLANG_VERSION) .
 
 docker-run-unittest:
 	source testdata/duckdns/env.testconfig && docker run --rm -e TEST_ZONE_NAME=$${TEST_ZONE_NAME} -e DNS_NAME=$${DNS_NAME} -e DUCKDNS_TOKEN=$${DUCKDNS_TOKEN} cert-manager-webhook-duckdns:test
@@ -53,7 +62,7 @@ compile:
 	GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -o webhook-arm64 -ldflags '-w -extldflags "-static"'
 
 github-listbuild:
-	gh run list --workflow=docker-build.yml  --repo github.com/$(IMAGE_NAME)
+	gh run list --workflow=docker-build.yml --repo github.com/$(GITHUB_REPO)
 
 github-build:
-	gh workflow run "Build and Push Docker Images" --repo github.com/$(IMAGE_NAME) --ref master
+	gh workflow run "Build and Push Docker Images" --repo github.com/$(GITHUB_REPO) --ref master
