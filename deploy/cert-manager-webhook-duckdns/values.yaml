@@ -1,3 +1,5 @@
+replicaCount: 1
+
 # The GroupName here is used to identify your company or business unit that
 # created this webhook.
 # For example, this may be "acme.mycompany.com".
@@ -30,7 +32,7 @@ clusterIssuer:
     
 image:
   repository: ghcr.io/cobexer/cert-manager-webhook-duckdns
-  tag: {{ .Chart.Version }}
+  tag: ""
   pullPolicy: IfNotPresent
   # pullSecret: ""
 

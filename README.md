@@ -16,7 +16,7 @@ Images are hosted on the GitHub Container Registry:
     ghcr.io/cobexer/cert-manager-webhook-duckdns
 
 ## Compatibility
-This webhook has been tested with [cert-manager] v1.2.3 and Kubernetes v0.17.x on `amd64`. In theory it should work on other hardware platforms as well but no steps have been taken to verify this. Please drop me a note if you had success.
+This webhook has been tested with [cert-manager] v1.20.x and Kubernetes v1.35.x on `amd64` and `arm64`.
 
 ## Install with helm
 
@@ -28,7 +28,7 @@ This webhook has been tested with [cert-manager] v1.2.3 and Kubernetes v0.17.x o
         helm install \
         cert-manager jetstack/cert-manager \
         --namespace cert-manager \
-        --version v1.2.3 \
+        --version v1.20.2 \
         --set 'extraArgs={--dns01-recursive-nameservers=8.8.8.8:53\,1.1.1.1:53}' \
         --create-namespace \
         --set installCRDs=true
@@ -44,7 +44,7 @@ This webhook has been tested with [cert-manager] v1.2.3 and Kubernetes v0.17.x o
     Example output:
 
             NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-            jetstack/cert-manager	  v1.2.3       	  v1.2.3     	    A Helm chart for cert-manager
+            jetstack/cert-manager	  v1.20.2      	  v1.20.2    	    A Helm chart for cert-manager
 
     Check the state and ensure that all pods are running fine (watch out for any issues regarding the `cert-manager-webhook-` pod  and its volume mounts):
 

@@ -5,8 +5,6 @@
 ## TL;DR
 
 ```console
-$ helm repo add ebrianne.github.io https://ebrianne.github.io/helm-charts
-$ helm repo update
 $ helm install cert-manager-webhook-duckdns \
             --namespace cert-manager \
             --set duckdns.token='<token>' \
@@ -14,7 +12,7 @@ $ helm install cert-manager-webhook-duckdns \
             --set clusterIssuer.staging.create=true \
             --set clusterIssuer.email=<email> \
             --set logLevel=2 \
-            ebrianne.github.io/cert-manager-webhook-duckdns
+            oci://ghcr.io/cobexer/charts/cert-manager-webhook-duckdns
 ```
 
 ## Introduction
@@ -38,7 +36,7 @@ $ helm install cert-manager-webhook-duckdns \
             --set clusterIssuer.staging.create=true \
             --set clusterIssuer.email=<email> \
             --set logLevel=2 \
-            ebrianne.github.io/cert-manager-webhook-duckdns
+            oci://ghcr.io/cobexer/charts/cert-manager-webhook-duckdns
 ```
 
 The command deploys cert-manager-webhook-duckdns on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
@@ -61,6 +59,7 @@ The following table lists the configurable parameters of the cert-manager-webhoo
 
 | Parameter                          | Description                                     | Default                                                 |
 |------------------------------------|-------------------------------------------------|---------------------------------------------------------|
+| `replicaCount`                     | Number of webhook replicas                      | `1`                                                     |
 | `groupName`                        | Group name for the webhook                      | `acme.duckdns.org`                                      |
 | `logLevel`                         | Logging level                                   | `2`                                                     |
 | `certManager.namespace`            | cert-manager namespace                          | `cert-manager`                                          |
@@ -69,8 +68,8 @@ The following table lists the configurable parameters of the cert-manager-webhoo
 | `clusterIssuer.email`              | Cluster issuer email address                    | `name@example.com`                                      |
 | `clusterIssuer.staging.create`     | Create letsencrypt staging cluster issuer       | `false`                                                 |
 | `clusterIssuer.production.create`  | Create letsencrypt production cluster issuer    | `false`                                                 |
-| `image.repository`                 | Docker image repository                         | `ebrianne/cert-manager-webhook-duckdns`                 |
-| `image.tag`                        | Docker image tag                                | `v1.2.2`                                                |
+| `image.repository`                 | Docker image repository                         | `ghcr.io/cobexer/cert-manager-webhook-duckdns`          |
+| `image.tag`                        | Docker image tag                                | chart appVersion                                        |
 | `image.pullPolicy`                 | Docker image pull policy                        | `IfNotPresent`                                          |
 | `image.pullSecret`                 | Docker image pull secret                        | `nil`                                                   |
 | `secret.existingSecret`            | Existing secret                                 | `false`                                                 |
